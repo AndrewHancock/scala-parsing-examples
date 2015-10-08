@@ -1,0 +1,1 @@
+libraryDependencies += "org.scala-lang" % "scala-parser-combinators" % "2.11.0-M4"

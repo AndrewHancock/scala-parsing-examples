@@ -21,7 +21,7 @@ case class Divide(factor : Factor, term : Term) extends Term
 abstract class Factor extends Term
 case class Constant(value: Double) extends Factor
 
-class ExpParser extends JavaTokenParsers {
+class ExpParser extends JavaTokenParsers with PackratParsers {
   def exp: Parser[Expression] = 
     term ~ "+" ~ exp ^^ { case term ~ "+" ~ exp => Add(term, exp) } |
     term ~ "-" ~ exp ^^ { case term ~ "-" ~ exp => Sub(term, exp) } |
@@ -48,6 +48,7 @@ object ExpressionEvaluator extends ExpParser {
   }
     
   def main(args: Array[String]) {    
+    println("Enter expression: ")
     for (ln <- io.Source.stdin.getLines) {
       val expr = parseAll(exp, ln)
       println(expr)
